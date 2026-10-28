@@ -43,3 +43,25 @@ PHASE 3 - Verification
 - Check whether src/main/resources/credentials/ and target/ are listed in .gitignore. Do not edit .gitignore; just tell me if either is missing.
 
 General rules: do not modify any file outside the ones listed above (the skill folder, copilot-instructions.md, AGENTS.md, CLAUDE.md); do not run tests; do not stage, commit or push anything; tell me when you have used a lot of context.
+
+
+
+
+
+
+
+
+
+----
+
+Review the skill in .github/skills/<project-name>-automation/ (SKILL.md and references/), plus .github/copilot-instructions.md, AGENTS.md and CLAUDE.md. Do not modify anything yet; only report.
+
+Never read, list or reference src/main/resources/credentials/ or target/.
+
+1. Accuracy: Spot-check at least 10 concrete claims in the skill against the real code (class names, method signatures, package paths, locator conventions, config keys, suite xml usage). List each claim as verified, wrong or missing, with the file path you checked.
+2. Coverage: Compare the skill against the actual packages (api, database, idira, modules, platform, unix, windows, sws, tools, poc). Which areas, base classes or utilities are missing or only mentioned superficially?
+3. Usability test: Pick 2 realistic tasks (e.g. "add an API test for a new endpoint" and "add a UI test on an existing module"). Using ONLY the skill, without searching the project, write the plan you would follow: which files you would create or change, which base classes and utilities you would reuse, and which conventions apply. Then tell me where the skill left you guessing.
+4. Quality: Check that SKILL.md is under 150 lines, the frontmatter has only `name` and `description` (name matches the folder), all file references are relative and point to existing files, and nothing is tool-specific, duplicated or outdated.
+5. Safety: Check that no passwords, tokens, apikeys, client_secrets or sensitive internal URLs appear in any file, and that nothing refers to src/main/resources/credentials/ or target/. Also check whether both folders are in .gitignore (do not edit it).
+
+Output: a table of problems (file, issue, severity high/medium/low, exact suggested fix), then a short list of the most important gaps. Wait for my approval before changing anything.
