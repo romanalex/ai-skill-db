@@ -1,0 +1,6 @@
+﻿ID,Question,Why it matters,Affects,Answer,Date answered,Status
+Q1,"secret (and supportGroup) are marked mandatory in the spec, but the working request sends them empty. What is the expected behavior?",Defines the expected result for TC-09.,TC-09,"Fields are not mandatory, so the request returns 200 OK, but account onboarding should fail.",2026-10-27,Answered
+Q2,What are the valid osVersion values for Windows?,Needed to build the Windows request body.,"TC-03, TC-04",TBD soon.,,Open
+Q3,What should happen on duplicate onboarding of the same CI and account?,Would define a duplicate-onboarding test.,-,N/A. Duplicate test removed from the plan.,2026-10-27,Answered
+Q4,"How do we verify the accounts, given that the UI integration is not done yet?",Defines the account-level evidence.,All happy-path cases,Verify in the privilege-fulfilment-service logs.,2026-10-27,Answered
+Q5,"For Windows ZSP, how do we verify that targetRole (AD group) was processed?",Needed to know what to look for in the privilege-fulfilment logs.,"TC-03, TC-04",Check the privilege-fulfilment-service logs: they show whether targetRole was processed.,2026-10-27,Answered

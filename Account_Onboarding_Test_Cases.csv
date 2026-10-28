@@ -1,0 +1,27 @@
+﻿ID,Priority,Type,Platform,Title,Request: what to send / change,Expected response,Expected logs: registration chain (search the returned id),Expected DB (asset_registry),Expected logs: privilege-fulfilment-service,Open question,Actual result,Status,Response id / eventId,Evidence link / file,Tester,Date,Notes
+TC-01,High,Happy path,Unix,"Unix onboarding, single account","Base Unix body: platform=Unix, ciName=<FQDN>, ciClassification=DEV, osVersion=RHEL 8, narId=<valid>, targetRole=[], 1 account (root / Application / Local / password) with a non-empty test secret.",200 OK. Body has id (UUID) and status = PUBLISHED.,"asset-registration-service: event received (neopam.asset.registration.requested.v1), 'Event processed successfully'.
+asset-persistence-service: 'Asset registration persisted successfully' (neopam.asset.registered.v1).
+No ERROR or stack trace.","New row in asset_registry: event_type = neopam.asset.registered.v1, created_at close to request time (row count +1).","'Technical onboarding completed(UNIX)' and 'Successfully link account' for each account in the request.
+No ERROR or stack trace.",,,Not Run,,,,,
+TC-02,High,Happy path,Unix,"Unix onboarding, two accounts",Same as TC-01 but accounts[] has two entries (e.g. root and cyberadm).,200 OK. Body has id (UUID) and status = PUBLISHED.,"asset-registration-service: event received (neopam.asset.registration.requested.v1), 'Event processed successfully'.
+asset-persistence-service: 'Asset registration persisted successfully' (neopam.asset.registered.v1).
+No ERROR or stack trace.","New row in asset_registry: event_type = neopam.asset.registered.v1, created_at close to request time (row count +1).","'Technical onboarding completed(UNIX)' and 'Successfully link account' for each account in the request.
+No ERROR or stack trace.
+One link-account log per account.",,,Not Run,,,,,
+TC-03,High,Happy path,Windows,"Windows ZSP onboarding, local account","Base Windows body: platform=Windows, ciName=<FQDN>, ciClassification=DEV, osVersion=<Windows version>, narId=<valid>, targetRole=[<AD group>], 1 Local account with a non-empty test secret.",200 OK. Body has id (UUID) and status = PUBLISHED.,"asset-registration-service: event received (neopam.asset.registration.requested.v1), 'Event processed successfully'.
+asset-persistence-service: 'Asset registration persisted successfully' (neopam.asset.registered.v1).
+No ERROR or stack trace.","New row in asset_registry: event_type = neopam.asset.registered.v1, created_at close to request time (row count +1).","Technical onboarding completed for WINDOWS / ZSP and account linked (confirm exact log wording on first run).
+Check that the log shows targetRole was processed.
+No ERROR or stack trace.",Q2,,Not Run,,,,,
+TC-04,Medium,Happy path,Windows,"Windows ZSP onboarding, domain account",Same as TC-03 but accountType = Domain.,200 OK. Body has id (UUID) and status = PUBLISHED.,"asset-registration-service: event received (neopam.asset.registration.requested.v1), 'Event processed successfully'.
+asset-persistence-service: 'Asset registration persisted successfully' (neopam.asset.registered.v1).
+No ERROR or stack trace.","New row in asset_registry: event_type = neopam.asset.registered.v1, created_at close to request time (row count +1).","Technical onboarding completed for WINDOWS / ZSP and account linked (confirm exact log wording on first run).
+Check that the log shows targetRole was processed.
+No ERROR or stack trace.",Q2,,Not Run,,,,,
+TC-05,High,Negative,Both,Missing or invalid apikey,"Run twice: remove the apikey header, then use a wrong apikey value.",401 or 403. No id returned.,No registration/persistence logs for this request. (rejected at the gateway).,No new row in asset_registry.,No onboarding logs for this request.,,,Not Run,,,,,
+TC-06,High,Negative,Both,Missing or expired bearer token,"Run twice: remove the authorization header, then use an expired or tampered token.",401. No id returned.,No registration/persistence logs for this request. (rejected at the gateway).,No new row in asset_registry.,No onboarding logs for this request.,,,Not Run,,,,,
+TC-07,High,Negative,Both,Invalid platform,platform = Linux (valid: Windows | Unix | Database).,400 with a message naming platform.,No registration/persistence logs for this request.,No new row in asset_registry.,No onboarding logs for this request.,,,Not Run,,,,,
+TC-08,High,Negative,Unix,Missing mandatory ciName,"ciName = """" (mandatory for Unix and Windows).",400 with a message naming ciName.,No registration/persistence logs for this request.,No new row in asset_registry.,No onboarding logs for this request.,,,Not Run,,,,,
+TC-09,High,Edge,Unix,"Empty secret: request accepted, account onboarding fails","Base Unix body with secret = """".",200 OK. Body has id (UUID) and status = PUBLISHED. (the field is not mandatory at request level).,"asset-registration-service: event received (neopam.asset.registration.requested.v1), 'Event processed successfully'.
+asset-persistence-service: 'Asset registration persisted successfully' (neopam.asset.registered.v1).
+No ERROR or stack trace.","New row in asset_registry: event_type = neopam.asset.registered.v1, created_at close to request time (row count +1).","Account onboarding FAILS: error logged for the account, and no 'Technical onboarding completed' / 'Successfully link account' for it.",Q1,,Not Run,,,,,
