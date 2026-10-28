@@ -1,45 +1,10 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2870
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
 \paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\deftab720
+\pard\pardeftab720\partightenfactor0
 
-\f0\fs24 \cf0 I want you to create a skill (Agent Skills format: SKILL.md + references/) for this test automation project. The skill must be readable by an AI agent (Claude Code, GitHub Copilot in agent mode, Gemini CLI) before any implementation task, so the agent doesn't have to re-read the whole project. Goal: the agent should quickly know how the framework is structured, which conventions are used, which utilities already exist (so it reuses them instead of rewriting them), and where new code should go.\
-\
-Work in 3 phases and stop after each one so I can confirm.\
-\
-PHASE 1 - Exploration (do not write anything yet)\
-- Read the folder structure, pom.xml, config files (properties, testng/suite xml, .github workflows), base classes (BaseTest, PWBase, TestUtils, etc.) and 2-3 representative tests from each package (api, database, idira, modules, platform, unix, windows, sws, tools, poc).\
-- Do not read files in target/, downloads/, temp/ or binary resources.\
-- Give me a summary of at most 40 lines with what you found and a file plan for the skill. Do not write anything yet.\
-\
-PHASE 2 - Writing the skill\
-Create .github/skills/<project-name>-automation/ with:\
-- A short SKILL.md (under 150 lines): the description (when to use it), a map of the framework, golden rules, and links to the reference files, which are read only when needed.\
-- references/ with separate files, for example:\
-  - architecture.md (packages, responsibilities, where to put a new test)\
-  - base-classes-and-utils.md (base classes, useful methods, short signatures, when to use them)\
-  - ui-selenium-playwright.md (page objects, locator convention, waits, how to run)\
-  - api-testing.md (RestAssured/HTTP, authentication, headers, request/response conventions)\
-  - database-kafka-elasticsearch.md (how to connect, existing helpers, query conventions)\
-  - config-and-test-data.md (properties, environments, test_data, suite xml, how to add a test to a suite)\
-  - conventions.md (naming, logging/info steps, SoftAssert, Allure, TestNG annotations, what to avoid)\
-  - checklist-new-test.md (exact steps to implement a new test, with a minimal example)\
-- In each file, include only what is not easy to see from the code: conventions, pitfalls, and short examples copied from real code, with the file path. Do not copy whole classes.\
-- Write everything in English, concise, no filler.\
-\
-Multi-tool compatibility (Claude Code, GitHub Copilot, Gemini CLI):\
-- The SKILL.md frontmatter must contain only `name` and `description`. name: lowercase with hyphens, identical to the folder name. description: what it does and when to use it, in one clear sentence with keywords such as "test automation", "Selenium", "Playwright", "API test", "TestNG". Do not use fields specific to a single tool.\
-- File references in SKILL.md must be relative paths (e.g. references/architecture.md), with no absolute paths and no Claude-specific syntax.\
-- Do not assume tools or commands specific to one agent (e.g. do not write "use the Task tool" or "run /cost"). Write neutral instructions: "read file X", "search in package Y".\
-- Create .github/copilot-instructions.md of at most 15 lines, saying: for any test automation task, first read .github/skills/<project-name>-automation/SKILL.md and then only the relevant files in references/, before searching the rest of the project.\
-- Create a short AGENTS.md in the repository root with the same instruction, for tools that do not support skills.\
-- Add to CLAUDE.md (create it if it does not exist) a line pointing to .github/skills/<project-name>-automation/SKILL.md.\
-\
-PHASE 3 - Verification\
-- Pick 2 realistic tasks (e.g. "add an API test for a new endpoint", "add a UI test on an existing module") and check whether the skill would be enough without re-reading the project. Fill in the gaps.\
-- Also verify the skill as if it were read by an agent that sees only SKILL.md and references/, with no other context. Tell me what is missing.\
-- Check that there are no passwords, tokens, apikeys, client_secrets or sensitive internal URLs in any created file.\
-\
-General rules: do not modify any file outside the ones listed above (the skill folder, copilot-instructions.md, AGENTS.md, CLAUDE.md); do not run tests; tell me when you have used a lot of context.}
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 I want you to create a skill (Agent Skills format: SKILL.md + references/) for this test automation project. The skill must be readable by an AI agent (Claude Code, GitHub Copilot in agent mode, Gemini CLI) before any implementation task, so the agent doesn't have to re-read the whole project. Goal: the agent should quickly know how the framework is structured, which conventions are used, which utilities already exist (so it reuses them instead of rewriting them), and where new code should go. EXCLUSIONS (apply to all phases) - Never read, list, search, quote or reference anything under src/main/resources/credentials/ or target/. They are irrelevant and must not appear in the skill, in any summary, or in any created file. - Do not read other secret-like files either (e.g. .env, keystores, *.pem, *.key, files with passwords or tokens). - Do not run git add, git commit or git push. I will review and commit myself. Work in 3 phases and stop after each one so I can confirm. PHASE 1 - Exploration (do not write anything yet) - Read the folder structure, pom.xml, config files (properties, testng/suite xml, .github workflows), base classes (BaseTest, PWBase, TestUtils, etc.) and 2-3 representative tests from each package (api, database, idira, modules, platform, unix, windows, sws, tools, poc). - Do not read files in src/main/resources/credentials/, target/, downloads/, temp/ or binary resources. - Give me a summary of at most 40 lines with what you found and a file plan for the skill. Do not write anything yet. PHASE 2 - Writing the skill Create .github/skills/<project-name>-automation/ with: - A short SKILL.md (under 150 lines): the description (when to use it), a map of the framework, golden rules, and links to the reference files, which are read only when needed. - references/ with separate files, for example: - architecture.md (packages, responsibilities, where to put a new test) - base-classes-and-utils.md (base classes, useful methods, short signatures, when to use them) - ui-selenium-playwright.md (page objects, locator convention, waits, how to run) - api-testing.md (RestAssured/HTTP, authentication, headers, request/response conventions) - database-kafka-elasticsearch.md (how to connect, existing helpers, query conventions) - config-and-test-data.md (properties, environments, test_data, suite xml, how to add a test to a suite) - conventions.md (naming, logging/info steps, SoftAssert, Allure, TestNG annotations, what to avoid) - checklist-new-test.md (exact steps to implement a new test, with a minimal example) - In each file, include only what is not easy to see from the code: conventions, pitfalls, and short examples copied from real code, with the file path. Do not copy whole classes. - Write everything in English, concise, no filler. - In SKILL.md, add a golden rule: agents must not read or modify src/main/resources/credentials/ or target/. Multi-tool compatibility (Claude Code, GitHub Copilot, Gemini CLI): - The SKILL.md frontmatter must contain only `name` and `description`. name: lowercase with hyphens, identical to the folder name. description: what it does and when to use it, in one clear sentence with keywords such as "test automation", "Selenium", "Playwright", "API test", "TestNG". Do not use fields specific to a single tool. - File references in SKILL.md must be relative paths (e.g. references/architecture.md), with no absolute paths and no Claude-specific syntax. - Do not assume tools or commands specific to one agent (e.g. do not write "use the Task tool" or "run /cost"). Write neutral instructions: "read file X", "search in package Y". - Create .github/copilot-instructions.md of at most 15 lines, saying: for any test automation task, first read .github/skills/<project-name>-automation/SKILL.md and then only the relevant files in references/, before searching the rest of the project. Also say to ignore src/main/resources/credentials/ and target/. - Create a short AGENTS.md in the repository root with the same instruction, for tools that do not support skills. - Add to CLAUDE.md (create it if it does not exist) a line pointing to .github/skills/<project-name>-automation/SKILL.md. PHASE 3 - Verification - Pick 2 realistic tasks (e.g. "add an API test for a new endpoint", "add a UI test on an existing module") and check whether the skill would be enough without re-reading the project. Fill in the gaps. - Also verify the skill as if it were read by an agent that sees only SKILL.md and references/, with no other context. Tell me what is missing. - Check that there are no passwords, tokens, apikeys, client_secrets or sensitive internal URLs in any created file, and that nothing created refers to content from src/main/resources/credentials/ or target/. - Check whether src/main/resources/credentials/ and target/ are listed in .gitignore. Do not edit .gitignore; just tell me if either is missing. General rules: do not modify any file outside the ones listed above (the skill folder, copilot-instructions.md, AGENTS.md, CLAUDE.md); do not run tests; do not stage, commit or push anything; tell me when you have used a lot of context.}
